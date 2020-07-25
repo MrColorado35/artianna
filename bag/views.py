@@ -21,7 +21,6 @@ def add_to_bag(request, item_id):
     size = None
     if 'product_size' in request.POST:
         size = request.POST['product_size']
-
     bag = request.session.get('bag', {})
 
     if size:
