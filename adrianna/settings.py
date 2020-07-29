@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'checkout',
 
     #Other 
-    'crispy-forms',
+    'crispy_forms',
 ]
 
 
@@ -81,6 +81,7 @@ TEMPLATES = [
                  # required by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
                 'bag.contexts.bag_contents',
             ],
             'builtins': [
