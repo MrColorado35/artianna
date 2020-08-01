@@ -16,6 +16,7 @@ def checkout(request):
 
     if request.method == 'POST':
         bag = request.session.get('bag', {})
+
         form_data = {
             'full_name': request.POST['full_name'],
             'email': request.POST['email'],
@@ -62,11 +63,10 @@ def checkout(request):
         else:
             messages.error(request, 'There was an error with your form. \
                 Please double check your information.')
-
     else:
         bag = request.session.get('bag', {})
         if not bag:
-            messages.error(request, "There is nothing in your bag at the moment")
+            messages.error(request, "There's nothing in your bag at the moment")
             return redirect(reverse('products'))
 
         current_bag = bag_contents(request)
@@ -78,35 +78,38 @@ def checkout(request):
             currency=settings.STRIPE_CURRENCY,
         )
 
-    if not stripe_public_key:
-        messages.warning(request, 'Strip public key is missing. Did you forget to set it in your enviroment?')
+        order_form = OrderForm()
 
-    order_form = OrderForm()
+    if not stripe_public_key:
+        messages.warning(request, 'Stripe public key is missing. \
+            Did you forget to set it in your environment?')
+
     template = 'checkout/checkout.html'
     context = {
-            'order_form': order_form,
-            'stripe_public_key': stripe_public_key,
-            'client_secret': intent.client_secret,
-        }
+        'order_form': order_form,
+        'stripe_public_key': stripe_public_key,
+        'client_secret': intent.client_secret,
+    }
 
     return render(request, template, context)
+
 
 def checkout_success(request, order_number):
     """
     Handle successful checkouts
     """
-
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
-        email will be sent to {order.email}. ')
+        email will be sent to {order.email}.')
 
     if 'bag' in request.session:
         del request.session['bag']
 
-    template = 'checkout.checkout_success.html'
+    template = 'checkout/checkout_success.html'
     context = {
         'order': order,
     }
+
     return render(request, template, context)
