@@ -51,7 +51,18 @@ form.addEventListener('submit', function(ev) {
     $('#submit-button').attr('disabled', true);
     $('#payment-form').fadeToggle(100);
     $('#loading-overlay').fadeToggle(100);
-    stripe.confirmCardPayment(clientSecret, {
+
+    var saveInfo = Boolean($('#id-save-info').attr('checked'));
+    var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+    var postData = {
+        'csrfmiddlewaretoken': csrfToken,
+        'client_secret': clientSecret,
+        'save_info': saveInfo,
+    }
+    var url = '/checkout/cache_checkout_data/';
+
+    $.post(url, postData).done(function () {
+        stripe.confirmCardPayment(clientSecret, {
         payment_method: {
             card: card,
             billing_details: {
@@ -97,5 +108,10 @@ form.addEventListener('submit', function(ev) {
                 form.submit();
             }
         }
-    });
+        });
+    }).fail(function () {
+        //just reload the page, the error message will be in django.messages
+        location.reload();
+    })
+
 });
