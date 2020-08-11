@@ -48,11 +48,9 @@ INSTALLED_APPS = [
     'checkout',
     'profiles',
 
-    #Other 
+    # Other
     'crispy_forms',
 ]
-
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -64,7 +62,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'adrianna.urls'
+ROOT_URLCONF = 'artianna.urls'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -117,7 +115,7 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
-WSGI_APPLICATION = 'adrianna.wsgi.application'
+WSGI_APPLICATION = 'artianna.wsgi.application'
 
 
 # Database
