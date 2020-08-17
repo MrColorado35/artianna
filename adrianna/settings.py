@@ -63,7 +63,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'artianna.urls'
+ROOT_URLCONF = 'adrianna.urls'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

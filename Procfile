@@ -1,1 +1,1 @@
-web: gunicorn artianna.wsgi:application
+web: gunicorn adrianna.wsgi:application
