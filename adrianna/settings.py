@@ -116,7 +116,7 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
-WSGI_APPLICATION = 'artianna.wsgi.application'
+WSGI_APPLICATION = 'adrianna.wsgi.application'
 
 
 # Database
@@ -125,7 +125,7 @@ WSGI_APPLICATION = 'artianna.wsgi.application'
 if 'DATABASE_URL' in os.environ:
     DATABASES = {
     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-}
+    }
 else:
     DATABASES = {
         'default': {
