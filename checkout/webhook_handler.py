@@ -36,8 +36,6 @@ class StripeWH_Handler:
             [cust_email]
         )
 
-
-
     def handle_event(self, event):
         """
         Handle a generic/unknown/unexpected webhook event
@@ -46,7 +44,7 @@ class StripeWH_Handler:
             content=f"Webhook recived: {event['type']}",
             status=200
         )
-        
+
     def handle_payment_intent_succeeded(self, event):
         """
         Handle a payment_intent.succeeded webhook from Stripe
@@ -84,7 +82,7 @@ class StripeWH_Handler:
         attempt = 1
         while attempt <= 5:
             try:
-                order = Order.objects.get (
+                order = Order.objects.get(
                     full_name__iexact=shipping_details.name,
                     email__iexact=billing_details.email,
                     phone_number__iexact=shipping_details.phone,
@@ -100,7 +98,7 @@ class StripeWH_Handler:
                 )
                 order_exists = True
                 break
-                
+
             except Order.DoesNotExist:
                 attempt += 1
                 time.sleep(1)
@@ -128,7 +126,7 @@ class StripeWH_Handler:
                     stripe_pid=pid,
                     )
                 for item_id, item_data in json.loads(bag).items():
-                        
+
                     product = Product.objects.get(id=item_id)
                     if isinstance(item_data, int):
                         order_line_item = OrderLineItem(
